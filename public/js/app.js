@@ -37384,7 +37384,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "spinner-border", attrs: { role: "status" } },
+      { staticClass: "spinner-border text-primary", attrs: { role: "status" } },
       [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
     )
   }
