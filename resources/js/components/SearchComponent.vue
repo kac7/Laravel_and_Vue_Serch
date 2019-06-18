@@ -4,29 +4,33 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control" @:input="fetch()" id="name" v-model="name" placeholder="name">
+                        <input type="text" class="form-control" v-on:input="fetch" id="name" v-model="name"
+                               placeholder="name">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="number" class="form-control" @:input="fetch()" id="price_from" v-model="price_from"
+                        <input type="number" class="form-control" v-on:input="fetch" id="price_from"
+                               v-model="price_from"
                                placeholder="price from">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="number" class="form-control" @:input="fetch()" id="price_up" v-model="price_up"
+                        <input type="number" class="form-control" v-on:input="fetch" id="price_up" v-model="price_up"
                                placeholder="price up">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="number" class="form-control" v-on:change="fetch()" id="bedrooms" v-model="bedrooms"
+                        <input type="number" class="form-control" v-on:input="fetch" id="bedrooms" v-model="bedrooms"
                                placeholder="bedrooms">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="number" class="form-control" @:input="fetch()" id="bathrooms" v-model="bathrooms"
+                        <input type="number" class="form-control" v-on:input="fetch" id="bathrooms" v-model="bathrooms"
                                placeholder="bathrooms">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="number" class="form-control" @:input="fetch()" id="storeys" v-model="storeys" placeholder="storeys">
+                        <input type="number" class="form-control" v-on:input="fetch" id="storeys" v-model="storeys"
+                               placeholder="storeys">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="number" class="form-control" @:input="fetch()" id="garages" v-model="garages" placeholder="garages">
+                        <input type="number" class="form-control" v-on:input="fetch" id="garages" v-model="garages"
+                               placeholder="garages">
                     </div>
                 </div>
             </div>
@@ -82,19 +86,22 @@
             }
         },
         mounted() {
-            this.all();
+            this.fetch();
         },
         methods: {
-            all: function () {
-                this.is_refresh = true;
-                axios.get('/api/search').then((response) => {
-                    console.log(response);
-                    this.search_houses = response.data;
-                    this.is_refresh = false;
-                });
-            },
             fetch() {
-                axios.get('/api/search', { params: { name: this.name, price_from: this.price_from, price_up: this.price_up, bedrooms: this.bedrooms,bathrooms: this.bathrooms,storeys: this.storeys,garages: this.garages} })
+                this.is_refresh = true;
+                axios.get('/api/search', {
+                    params: {
+                        name: this.name,
+                        price_from: this.price_from,
+                        price_up: this.price_up,
+                        bedrooms: this.bedrooms,
+                        bathrooms: this.bathrooms,
+                        storeys: this.storeys,
+                        garages: this.garages
+                    }
+                })
                     .then((response) => {
                         console.log(response);
                         this.search_houses = response.data;

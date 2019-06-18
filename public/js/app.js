@@ -1784,6 +1784,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['houses1'],
   data: function data() {
@@ -1800,22 +1804,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.all();
+    this.fetch();
   },
   methods: {
-    all: function all() {
+    fetch: function fetch() {
       var _this = this;
 
       this.is_refresh = true;
-      axios.get('/api/search').then(function (response) {
-        console.log(response);
-        _this.search_houses = response.data;
-        _this.is_refresh = false;
-      });
-    },
-    fetch: function fetch() {
-      var _this2 = this;
-
       axios.get('/api/search', {
         params: {
           name: this.name,
@@ -1828,8 +1823,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         console.log(response);
-        _this2.search_houses = response.data;
-        _this2.is_refresh = false;
+        _this.search_houses = response.data;
+        _this.is_refresh = false;
       });
     }
   }
@@ -37122,15 +37117,15 @@ var render = function() {
               attrs: { type: "text", id: "name", placeholder: "name" },
               domProps: { value: _vm.name },
               on: {
-                ":input": function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.name = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ]),
@@ -37153,15 +37148,15 @@ var render = function() {
               },
               domProps: { value: _vm.price_from },
               on: {
-                ":input": function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.price_from = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.price_from = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ]),
@@ -37184,15 +37179,15 @@ var render = function() {
               },
               domProps: { value: _vm.price_up },
               on: {
-                ":input": function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.price_up = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.price_up = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ]),
@@ -37215,15 +37210,15 @@ var render = function() {
               },
               domProps: { value: _vm.bedrooms },
               on: {
-                change: function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.bedrooms = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.bedrooms = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ]),
@@ -37246,15 +37241,15 @@ var render = function() {
               },
               domProps: { value: _vm.bathrooms },
               on: {
-                ":input": function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.bathrooms = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.bathrooms = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ]),
@@ -37273,15 +37268,15 @@ var render = function() {
               attrs: { type: "number", id: "storeys", placeholder: "storeys" },
               domProps: { value: _vm.storeys },
               on: {
-                ":input": function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.storeys = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.storeys = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ]),
@@ -37300,15 +37295,15 @@ var render = function() {
               attrs: { type: "number", id: "garages", placeholder: "garages" },
               domProps: { value: _vm.garages },
               on: {
-                ":input": function($event) {
-                  return _vm.fetch()
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.garages = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.garages = $event.target.value
+                  },
+                  _vm.fetch
+                ]
               }
             })
           ])
@@ -49547,6 +49542,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('search-component', __webpack_require__(/*! ./components/SearchComponent.vue */ "./resources/js/components/SearchComponent.vue")["default"]);
 /**
