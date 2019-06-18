@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <table class="table" v-if="!is_refresh">
+                <table class="table" v-if="!is_refresh && !is_null">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -57,21 +57,23 @@
                     </tr>
                     </tbody>
                 </table>
-                <div v-if="is_refresh" class="text-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
+            <div v-if="is_refresh" class="text-center mt-5 mb-5">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
+            <div class="text-center mt-5 mb-5" v-if="is_null">
+                <h2>no data</h2>
+            </div>
+            </div>
+
+
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: [
-            'houses1'
-        ],
         data: function () {
             return {
                 search_houses: [],
@@ -82,7 +84,8 @@
                 bathrooms: null,
                 storeys: null,
                 garages: null,
-                is_refresh: false
+                is_refresh: false,
+                is_null:false
             }
         },
         mounted() {
@@ -91,6 +94,7 @@
         methods: {
             fetch() {
                 this.is_refresh = true;
+                this.is_null = false;
                 axios.get('/api/search', {
                     params: {
                         name: this.name,
@@ -104,11 +108,11 @@
                 })
                     .then((response) => {
                         console.log(response);
+                        this.is_null = response.data.length <= 0;
                         this.search_houses = response.data;
                         this.is_refresh = false;
                     });
             }
-
         }
     }
 </script>

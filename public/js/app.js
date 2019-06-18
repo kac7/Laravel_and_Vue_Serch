@@ -1788,8 +1788,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['houses1'],
   data: function data() {
     return {
       search_houses: [],
@@ -1800,7 +1804,8 @@ __webpack_require__.r(__webpack_exports__);
       bathrooms: null,
       storeys: null,
       garages: null,
-      is_refresh: false
+      is_refresh: false,
+      is_null: false
     };
   },
   mounted: function mounted() {
@@ -1811,6 +1816,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.is_refresh = true;
+      this.is_null = false;
       axios.get('/api/search', {
         params: {
           name: this.name,
@@ -1823,6 +1829,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         console.log(response);
+        _this.is_null = response.data.length <= 0;
         _this.search_houses = response.data;
         _this.is_refresh = false;
       });
@@ -37311,7 +37318,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
-        !_vm.is_refresh
+        !_vm.is_refresh && !_vm.is_null
           ? _c("table", { staticClass: "table" }, [
               _vm._m(0),
               _vm._v(" "),
@@ -37338,7 +37345,13 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm.is_refresh
-          ? _c("div", { staticClass: "text-center" }, [_vm._m(1)])
+          ? _c("div", { staticClass: "text-center mt-5 mb-5" }, [_vm._m(1)])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.is_null
+          ? _c("div", { staticClass: "text-center mt-5 mb-5" }, [
+              _c("h2", [_vm._v("no data")])
+            ])
           : _vm._e()
       ])
     ])
